@@ -13,6 +13,7 @@ public class OpenAIWrapper : MonoBehaviour
     [SerializeField] private int maxTokens = 300;
     [SerializeField, Range(0f, 1f)] private float samplingTemperature = 0.5f; 
     [SerializeField] private ImageDetail imageDetail = ImageDetail.Auto;
+    public static event Action<string> OnOpenAIResponse;
 
     public async Task<string> AnalyzeImageWithPrompt(byte[] imageData, string prompt)
     {
@@ -73,7 +74,11 @@ public class OpenAIWrapper : MonoBehaviour
 
             string jsonResponse = await httpResponse.Content.ReadAsStringAsync();
 
-            if (httpResponse.IsSuccessStatusCode) return jsonResponse;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                OnOpenAIResponse?.Invoke(jsonResponse);
+                return jsonResponse;
+            }
             return "Error: " + httpResponse.StatusCode.ToString();
         }
     }
