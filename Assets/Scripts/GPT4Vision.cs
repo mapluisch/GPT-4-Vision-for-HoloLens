@@ -8,8 +8,8 @@ public class GPT4Vision : MonoBehaviour
 
     private void OnEnable()
     {
-        if (photoCapturer) photoCapturer.OnPhotoCaptured += OnPhotoCaptured;
         TryGetComponents();
+        if (photoCapturer) photoCapturer.OnPhotoCaptured += OnPhotoCaptured;
     }
     
     private void OnDisable()

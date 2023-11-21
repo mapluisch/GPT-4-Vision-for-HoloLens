@@ -1,7 +1,7 @@
-# GPT-4 Vision Integration for HoloLens
+# GPT-4 Vision for HoloLens
 
 ## Overview
-This project demonstrates the integration of OpenAI's GPT-4 Vision API with a HoloLens application. Users can capture images using the HoloLens camera and receive descriptive responses from the GPT-4V model. Alternatively, users can import and specify images (tested with .jpg) and receive GPT-4V responses as well.
+This project demonstrates the integration of OpenAI's GPT-4 Vision API with a HoloLens application. Users can capture images using the HoloLens camera and receive descriptive responses from the GPT-4V model. Alternatively, users can import and specify image files (tested with .jpg) and receive GPT-4V responses.
 
 This app uses Unity 2022.3.4f1, although newer versions should work fine (untested, though!).
 
@@ -16,5 +16,7 @@ When running the application within the editor, the GameObject `ImageTest` will 
 
 If you want to capture and use the photos from a HoloLens directly, disable the ImageTest GameObject, and simply link the function call of `GPT4Vision.cs` > `CapturePhoto` (e.g., to a HoloLens button, finger gesture, ...).
 
+You can call the `OpenAIWrapper` function `AnalyzeImageWithPrompt` with any image as `byte[]` and specify your own base prompt on call as well. Just link a ref to any of your own scripts and it <i>should</i> work. 
+
 ## Disclaimer
-This project is a barebones prototype for now and still WIP. Better built-in functionalities will come, potentially adding standard GPT-4 requests / GPT-4-Audio as well. Feel free to create a PR.
+This project is a barebones prototype for now and still WIP. Feel free to create a PR.

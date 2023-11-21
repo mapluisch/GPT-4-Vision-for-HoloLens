@@ -14,6 +14,12 @@ public class OpenAIWrapper : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float samplingTemperature = 0.5f; 
     [SerializeField] private ImageDetail imageDetail = ImageDetail.Auto;
 
+    public async Task<string> AnalyzeImageWithPrompt(byte[] imageData, string prompt)
+    {
+        basePrompt = prompt;
+        return await AnalyzeImage(imageData);
+    }
+    
     public async Task<string> AnalyzeImage(byte[] imageData)
     {
         string base64Image = Convert.ToBase64String(imageData);
