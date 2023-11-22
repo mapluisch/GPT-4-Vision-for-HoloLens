@@ -30,7 +30,7 @@ public class GPT4Vision : MonoBehaviour
         try
         {
             string response = await openAIWrapper.AnalyzeImage(imageData);
-            Debug.Log("OpenAI Response: " + OpenAIWrapper.GetResponseContent(response));
+            Debug.Log("OpenAI Response: " + response);
         }
         catch (Exception ex)
         {

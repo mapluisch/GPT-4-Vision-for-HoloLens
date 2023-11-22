@@ -81,8 +81,17 @@ public class OpenAIWrapper : MonoBehaviour
 
         if (httpResponse.IsSuccessStatusCode)
         {
-            OnOpenAIResponse?.Invoke(jsonResponse);
-            return jsonResponse;
+            if (jsonResponse.Contains("Error: Unauthorized"))
+            {
+                // not authorized, aka no api-key?
+                return "Error: Unauthorized - check your API key.";
+            }
+            else
+            {
+                // otherwise, try to process the successful response
+                OnOpenAIResponse?.Invoke(GetResponseContent(jsonResponse));
+                return GetResponseContent(jsonResponse);
+            }
         }
         return "Error: " + httpResponse.StatusCode.ToString();
     }

@@ -15,7 +15,7 @@ public class ImageTest : MonoBehaviour
             byte[] imageData = uncompressedTexture.EncodeToJPG();
             string response = await openAIWrapper.AnalyzeImage(imageData);
             
-            Debug.Log("OpenAI response: " + OpenAIWrapper.GetResponseContent(response));
+            Debug.Log("OpenAI response: " + response);
         }
         else
         {

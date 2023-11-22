@@ -774,14 +774,14 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: AzureSpatialAnchors
+  metroPackageName: GPT-4-VisionforHoloLens
   metroPackageVersion: 1.0.10.0
   metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: DefaultCompany
-  metroCertificateIssuer: DefaultCompany
-  metroCertificateNotAfter: 00169056ffd1da01
-  metroApplicationDescription: Azure Spatial Anchors
+  metroCertificateSubject: martinpluisch
+  metroCertificateIssuer: martinpluisch
+  metroCertificateNotAfter: 0076944a2d3cdb01
+  metroApplicationDescription: GPT-4-Vision for HoloLens
   wsaImages: {}
   metroTileShortName: Azure Spatial Anchors
   metroTileShowName: 0
