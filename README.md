@@ -21,5 +21,8 @@ You can call the `OpenAIWrapper` function `AnalyzeImageWithPrompt` with any imag
 
 If you want to capture and use the photos from a HoloLens directly, disable the ImageTest GameObject, and simply link the function call of `GPT4Vision.cs` > `CapturePhoto` (e.g., to a HoloLens button, finger gesture, ...). Please be aware that capturing images with HoloLens only works on a real device - simulator / HoloLens Remoting Tool is not supported. 
 
+### Known issues
+For some reason, `HttpClient` likes to crash on HoloLens builds with MSVC v141, v142; make sure to use MSVC v143 and it works.
+
 ## Disclaimer
 This project is a barebones prototype for now and still WIP. Feel free to create a PR.
