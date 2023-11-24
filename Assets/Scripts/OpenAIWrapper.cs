@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Text;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -37,7 +38,7 @@ public class OpenAIWrapper : MonoBehaviour
         OnOpenAIRequest?.Invoke();
 
         using var httpClient = new HttpClient();
-        httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", openAIKey);
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", openAIKey);
             
         // via https://platform.openai.com/docs/guides/vision
         var payload = new
@@ -96,7 +97,7 @@ public class OpenAIWrapper : MonoBehaviour
         return "Error: " + httpResponse.StatusCode.ToString();
     }
 
-    public static string GetResponseContent(string response)
+    string GetResponseContent(string response)
     {
         try
         {
