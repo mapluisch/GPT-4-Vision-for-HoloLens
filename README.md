@@ -1,28 +1,36 @@
 # GPT-4 Vision for HoloLens
 
 ## Overview
-This project demonstrates the integration of OpenAI's GPT-4 Vision API with a HoloLens application. Users can capture images using the HoloLens camera and receive descriptive responses from the GPT-4V model. Alternatively, users can import and specify image files (tested with .jpg) and receive GPT-4V responses.
+This project demonstrates the integration of OpenAI's GPT-4 Vision API with a HoloLens application. Users can capture images using the HoloLens camera and receive descriptive responses from the GPT-4V model. 
 
-This app uses Unity 2022.3.4f1, although newer versions should work fine (untested, though!).
+### Demo
+https://github.com/mapluisch/GPT-4-Vision-for-HoloLens/assets/31780571/03260bce-97c2-481d-b0e8-6c04e4cf496d
 
-### Dependencies
-- Newtonsoft.Json (used for parsing OpenAI's response object, so somewhat optional)
+## Dependencies
+- Newtonsoft.JSON
+- MRTK Foundation
+- MRTK Standard Assets
 
-### Setup
-1. Open the `GPT4VisionExample`-Scene
+## Setup
+1. Open the `GPT4 Vision Example`-Scene
 2. Specify your OpenAI key in the GameObject `GPT4Vision` > `OpenAIWrapper` (or hardcode it into the OpenAIWrapper.cs class)
-3. Specify your base prompt (which is concatenated to the image sent to OpenAI), e.g. <i>describe this image:</i>
+3. Specify your base prompt (which is concatenated to the image sent to OpenAI), e.g. <i>Describe this image.</i>
 4. Specify max tokens, sampling temperature, and image detail for the OpenAI API call
 
 ### Running the application
-When running the application within the editor, the GameObject `ImageTest` will send an examplatory image stored in the `Images` folder to GPT-4V and ask for an image description (which then is printed to the console after a couple seconds).
+1. Build the app as `.appx` (or deploy to HoloLens directly, e.g. via Visual Studio) and install it on your HoloLens
+2. Run the app. Press on the camera button to capture a photo using HoloLens' PV camera which gets send to OpenAI's API.
+3. See the inference result (based on your prompt) displayed on the label.
 
-You can call the `OpenAIWrapper` function `AnalyzeImageWithPrompt` with any image as `byte[]` and specify your own base prompt on call as well. Just link a ref to any of your own scripts and it <i>should</i> work. 
+### Using the .unitypackage
+1. Make sure you have the dependencies from above installed.
+2. Import the package via `Assets > Import Package`.
+3. Either open up the `GPT4 Vision Example`-Scene, or import the `GPT4Vision`-Prefab into your own scene.
+4. Edit the base prompt, tokens, temperature, image detail as described above.
+5. Optional: call `CapturePhoto()` within the `GPT4Vision`-Prefab (in case you do not want to use the button and label within the Prefab).
 
-If you want to capture and use the photos from a HoloLens directly, disable the ImageTest GameObject, and simply link the function call of `GPT4Vision.cs` > `CapturePhoto` (e.g., to a HoloLens button, finger gesture, ...). Please be aware that capturing images with HoloLens only works on a real device - simulator / HoloLens Remoting Tool is not supported. 
-
-### Known issues
-For some reason, `HttpClient` likes to crash on HoloLens builds with MSVC v141, v142; make sure to use MSVC v143 and it works.
+## Performance improvements
+For some reason, the built-in `UnityEngine.Windows.WebCam` approach provided by Microsoft is really slow (~1.2s per captured photo on average, regardless of resolution). Also, inference speed on OpenAI's server can vary quite a bit. If you need this approach in real-time, skip `PhotoCapture` altogether (Research Mode) and think about hosting your own LMM. Feel free to message me if you need some pointers.
 
 ## Disclaimer
 This project is a barebones prototype for now and still WIP. Feel free to create a PR.
