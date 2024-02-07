@@ -27,14 +27,7 @@ public class GPT4Vision : MonoBehaviour
 
     private async void OnPhotoCaptured(byte[] imageData)
     {
-        try
-        {
-            string response = await openAIWrapper.AnalyzeImage(imageData);
-            Debug.Log("OpenAI Response: " + response);
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError("Error calling OpenAI: " + ex.Message);
-        }
+        try { await openAIWrapper.AnalyzeImage(imageData); }
+        catch (Exception ex) { Debug.LogError($"Error calling OpenAI: {ex.Message}"); }
     }
 }

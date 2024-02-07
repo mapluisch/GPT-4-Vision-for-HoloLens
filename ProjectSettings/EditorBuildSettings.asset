@@ -6,9 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GPT4VisionExample.unity
-    guid: 3dd4a396b5225f8469b9a1eb608bfa57
+    path: Assets/Scenes/GPT4 Vision Example.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
-    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 7f598214a7e390843a1738e04196c98f, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cbdc019cfec20a54f8c163566cb51514, type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: a29c2c9dda54fc34cbe1869a16a57716, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e5365283a67ea09459d3da084de07c9d, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 2e358aaa6968bf74fb04ddb286d23099, type: 2}

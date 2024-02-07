@@ -10,15 +10,9 @@ public class PhotoCapturer : MonoBehaviour
     private bool isInPhotoMode = false;
     public event Action<byte[]> OnPhotoCaptured;
 
-    private void OnEnable()
-    {
-        StartPhotoCaptureProcess();
-    }
+    private void OnEnable() => StartPhotoCaptureProcess();
 
-    private void OnDisable()
-    {
-        EndPhotoCaptureProcess(); 
-    }
+    private void OnDisable() => EndPhotoCaptureProcess();
 
     private void StartPhotoCaptureProcess() => PhotoCapture.CreateAsync(false, OnPhotoCaptureCreated);
     
@@ -40,21 +34,13 @@ public class PhotoCapturer : MonoBehaviour
 
     private void OnPhotoModeStarted(PhotoCapture.PhotoCaptureResult result)
     {
-        if (result.success)
-        {
-            isInPhotoMode = true;
-            CapturePhoto();
-        }
-        else
-        {
-            Debug.LogError("Failed to start photo mode.");
-        }
+        if (result.success) isInPhotoMode = true;
+        else Debug.LogError("Failed to start photo mode.");
     }
 
     public void CapturePhoto()
     {
-        if(isInPhotoMode)
-            photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
+        if (isInPhotoMode) photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
         else Debug.Log("Photo mode not ready, please re-init.");
     }
 
@@ -68,10 +54,7 @@ public class PhotoCapturer : MonoBehaviour
             byte[] imageData = imageDataBuffer.ToArray();
             OnPhotoCaptured?.Invoke(imageData);
         }
-        else
-        {
-            Debug.LogError("Failed to capture photo.");
-        }
+        else Debug.LogError("Failed to capture photo.");
     }
 
     

@@ -1,11 +1,11 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 using System.Text;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Net.Http;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
+using System.Net.Http.Headers;
 
 public class OpenAIWrapper : MonoBehaviour
 {
@@ -18,21 +18,14 @@ public class OpenAIWrapper : MonoBehaviour
     public static event Action<string> OnOpenAIResponse;
     public static event Action OnOpenAIRequest;
 
-    public async Task<string> AnalyzeImageWithPrompt(byte[] imageData, string prompt)
+    public async Task AnalyzeImage(byte[] imageData, string prompt = "")
     {
-        // analyze image with independent prompt
         string base64Image = Convert.ToBase64String(imageData);
-        return await MakeOpenAIRequest(base64Image, prompt);
+        await MakeOpenAIRequest(base64Image, String.IsNullOrEmpty(prompt) ? basePrompt : prompt);
     }
     
-    public async Task<string> AnalyzeImage(byte[] imageData)
-    {
-        // analyze image with specified basePrompt
-        string base64Image = Convert.ToBase64String(imageData);
-        return await MakeOpenAIRequest(base64Image, basePrompt);
-    }
-
-    private async Task<string> MakeOpenAIRequest(string base64Image, string prompt)
+    // sends an API req to OpenAI containing the captured image as b64-string and a user prompt
+    private async Task MakeOpenAIRequest(string base64Image, string prompt)
     {
         Debug.Log("Sending new request to OpenAI.");
         OnOpenAIRequest?.Invoke();
@@ -72,31 +65,25 @@ public class OpenAIWrapper : MonoBehaviour
             temperature = samplingTemperature
         };
 
-        string jsonPayload = JsonConvert.SerializeObject(payload);
-
         var httpResponse = await httpClient.PostAsync(
             "https://api.openai.com/v1/chat/completions", 
-            new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
+            new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json"));
 
         string jsonResponse = await httpResponse.Content.ReadAsStringAsync();
 
         if (httpResponse.IsSuccessStatusCode)
         {
-            if (jsonResponse.Contains("Error: Unauthorized"))
-            {
-                // not authorized, aka no api-key?
-                return "Error: Unauthorized - check your API key.";
-            }
+            if (jsonResponse.Contains("Error: Unauthorized")) Debug.Log("Error: Unauthorized - check your API key.");
             else
             {
-                // otherwise, try to process the successful response
                 OnOpenAIResponse?.Invoke(GetResponseContent(jsonResponse));
-                return GetResponseContent(jsonResponse);
+                return;
             }
         }
-        return "Error: " + httpResponse.StatusCode.ToString();
+        Debug.Log("Error: " + httpResponse);
     }
-
+    
+    // function to parse the response JSON and return the actual response message from OpenAI
     string GetResponseContent(string response)
     {
         try
@@ -106,11 +93,11 @@ public class OpenAIWrapper : MonoBehaviour
         }
         catch (JsonException jsonEx)
         {
-            Debug.LogError("JSON Parsing Error: " + jsonEx.Message);
+            Debug.Log("JSON Parsing Error: " + jsonEx.Message);
         }
         catch (Exception ex)
         {
-            Debug.LogError("Error in parsing response: " + ex.Message);
+            Debug.Log("Error in parsing response: " + ex.Message);
         }
     
         return "Error parsing response: " + response;
