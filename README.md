@@ -1,10 +1,17 @@
-# GPT-4 Vision for HoloLens
+<h1 align="center">GPT-4 Vision for HoloLens</h1>
 
 ## Overview
 This project demonstrates the integration of OpenAI's GPT-4 Vision API with a HoloLens application. Users can capture images using the HoloLens camera and receive descriptive responses from the GPT-4V model. 
 
 ### Demo
 https://github.com/mapluisch/GPT-4-Vision-for-HoloLens/assets/31780571/03260bce-97c2-481d-b0e8-6c04e4cf496d
+
+#### Screenshot of demo result
+<div align="center">
+  <img src="https://github.com/mapluisch/GPT-4-Vision-for-HoloLens/assets/31780571/c15d8bdc-f323-4664-ad24-5494d0303803" style="width:50%;">
+  <p><em>'A laptop displaying a webpage with the header "Let's build from here" is placed next to a spiral notebook and a pen on a dark surface.'</em></p>
+</div>
+
 
 ## Dependencies
 - Newtonsoft.JSON
